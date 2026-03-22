@@ -852,7 +852,7 @@ https://statics.pancake.vn/web-media/5e/ee/bf/4a/afa10d3bdf98ca17ec3191ebbfd3c82
         </div>
       </div>
       <div   id="w-s0sg19e4" class="p-absolute" >
-        <form netlify name="confirm" method="POST" id="s0sg19e4" class="full-width full-height">
+        <form name="confirm" method="POST" data-netlify="true" id="s0sg19e4" class="full-width full-height">
           <input type="hidden" name="form-name" value="confirm">
           <div   id="w-mf4t1etq" class="p-absolute" >
             <div class="input-css full-width full-height">
@@ -2807,13 +2807,18 @@ https://statics.pancake.vn/web-media/5e/ee/bf/4a/afa10d3bdf98ca17ec3191ebbfd3c82
 (function() {
   var form = document.getElementById('s0sg19e4');
   if (!form) return;
-  form.addEventListener('submit', function() {
+  form.addEventListener('submit', function(e) {
+    e.preventDefault();
     var formData = new FormData(form);
     formData.set('form-name', 'confirm');
     fetch('/', {
       method: 'POST',
       headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
       body: new URLSearchParams(formData).toString()
+    }).then(function(response) {
+      if (response.ok) {
+        form.reset();
+      }
     }).catch(function(err) { console.log('Netlify form submit error:', err); });
   });
 })();
